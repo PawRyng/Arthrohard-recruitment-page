@@ -1,0 +1,26 @@
+@mixin title-section {
+    text-align: center;
+    font-size: 48px;
+    color: transparent;
+    background: linear-gradient(90deg, #111 0%, #B1B1B1 54.17%, #696969 80.21%, #B1B1B1 100%);
+    background-clip: text;
+    display: block; 
+    margin-inline: auto;
+    margin-block-end: 135px;
+    &::after{
+        content: "";
+        height: 2px;
+        background-color: #111;
+        width: 10%;
+        display: block;
+        margin-inline: auto;
+        margin-block-start: 20px;
+    }
+}
+@mixin secont-title-text {
+    text-align: center;
+    display: block;
+    margin-inline: auto;
+    font-size: 31px;
+    color: #111;
+}

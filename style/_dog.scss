@@ -1,0 +1,33 @@
+.dog{
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    picture{
+        position: relative;
+        // width: max-content;
+    }
+    &__dog{
+        width: 50%;
+        position: relative;
+        left: 50%;
+        translate: -50% 0;
+        z-index: 1;
+        bottom: 10%;
+    }
+    &__dots{
+        position: absolute;
+
+        &--right{
+            right: 0;
+            bottom: 0;
+        }
+    }
+}
+@media (max-width:460px) {
+    .dog{
+        &__dots{
+
+            width: 30%;
+        }
+    }
+}

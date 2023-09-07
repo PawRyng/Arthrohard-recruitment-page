@@ -1,0 +1,26 @@
+// @use 'mixin';
+// @import './fonts';
+@use 'fonts';
+//import components
+@use 'header';
+@use 'nav';
+@use 'outstand-section';
+@use 'ingredients';
+@use 'dog';
+@use 'products';
+@use 'modal';
+body{
+    background-color: #F6F6F6;
+    overflow-x: hidden;
+    &.modal-open{
+        overflow: hidden;
+    }
+}
+html {
+    scroll-behavior: smooth;
+  }
+*{
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Futura PT', sans-serif;
+}
