@@ -46,7 +46,6 @@ const observerProducts = new IntersectionObserver(handleIntersectionProducts, {
 const paginationTriggerElement = document.getElementById('products-observer');
 observerProducts.observe(paginationTriggerElement);
 
-let pageNumber = 1; 
 
 const modalOpenHandler = function(){
     const {id, name, value} = this.dataset;
@@ -67,18 +66,14 @@ document.querySelector('.modal-dialog-header__close').addEventListener('click', 
     document.querySelector('body').classList.remove("modal-open")
 })
 
-async function handleIntersectionProducts(entries, observer) {
-  entries.forEach(async (entry) => {
-    if (entry.isIntersecting) {
-      try {
-        const perPageElement = document.querySelector('#products-select').value;
-        const container = document.querySelector('.products-container');
-        const templateElement = container.querySelector('.products-container__item--template');
-        const observerElement = document.getElementById('products-observer');
-        const {data} = await fetchPaginationData(perPageElement, pageNumber);  
-     
-        data.forEach(item =>{
-            const newItem = templateElement.cloneNode(true);
+//wyswietlanie itemow
+let tabProducts = []
+const showProduct = item =>{
+
+    const container = document.querySelector('.products-container');
+    const templateElement = container.querySelector('.products-container__item--template');
+    const observerElement = document.getElementById('products-observer');
+    const newItem = templateElement.cloneNode(true);
             newItem.textContent = `ID: ${item.id}`;
             newItem.classList.remove('products-container__item--template');
             newItem.setAttribute('data-id', item.id);
@@ -86,14 +81,66 @@ async function handleIntersectionProducts(entries, observer) {
             newItem.setAttribute('data-value', item.value);
             newItem.addEventListener('click', modalOpenHandler);
             container.insertBefore(newItem, observerElement);
+}
 
-        })
-        pageNumber += 1;
-      } catch (error) {
-        console.error('Wystąpił błąd:', error);
+let pageNumber = 1;
+let perPageElement = document.querySelector('#products-select').value;
+document.querySelector('#products-select').addEventListener('change', function(){
+    perPageElement = this.value;
+    pageNumber = 1;
+})
+let isFirst = true;
+
+
+let firstArray=[];
+const dowolandFunction = async () => {
+    try {
+      const { data } = await fetchPaginationData(perPageElement, pageNumber);
+  
+      for (const item of data) {
+        tabProducts.push(item);
       }
+  
+      const uniqueArray = [];
+      const uniqueIds = new Set();
+  
+      for (const obj of tabProducts) {
+        const objectId = obj.id;
+        if (!uniqueIds.has(objectId)) {
+          uniqueIds.add(objectId);
+          uniqueArray.push(obj);
+        }
     }
-  });
+    for (const item of uniqueArray) {
+        if (!firstArray.some((existingItem) => existingItem.id === item.id)) {
+            firstArray.push(item);
+
+          showProduct(item);
+        }
+    }
+  
+      if (tabProducts.length !== uniqueArray.length) {
+        pageNumber++;
+        dowolandFunction()
+    }
+    else{
+          pageNumber++;
+
+    }
+  
+      tabProducts = uniqueArray;
+
+    
+    } catch (error) {
+      console.error('Wystąpił błąd:', error);
+    }
+  };
+async function handleIntersectionProducts(entries, observer) {
+  entries.forEach(async (entry) => {
+    if (entry.isIntersecting) {
+        dowolandFunction();
+    }
+});
 }
 
 async function fetchPaginationData(perPageElement, pageNumber) {
