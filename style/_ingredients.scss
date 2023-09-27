@@ -1,4 +1,5 @@
 @use 'mixins';
+$nav-height: 0px!default; 
 .ingredients{
     margin-block-start: 150px;
     margin-block-start: 100px;
@@ -6,8 +7,10 @@
     // padding-block-st: 50px;
     padding-inline: 10%;
     background-color: #fff;
+    scroll-margin-block-start: $nav-height;
     &__title{
         @include mixins.title-section;
+
     }
     &__undertitle{
         @include mixins.secont-title-text;

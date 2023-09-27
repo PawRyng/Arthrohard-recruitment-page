@@ -1,14 +1,22 @@
+$nav-height-global: 120px;
 // @use 'mixin';
 // @import './fonts';
 @use 'fonts';
 //import components
 @use 'header';
-@use 'nav';
+@use 'nav' with (
+    $nav-height: $nav-height-global 
+);
 @use 'outstand-section';
-@use 'ingredients';
+@use 'ingredients' with (
+    $nav-height: $nav-height-global 
+);
 @use 'dog';
 @use 'products';
 @use 'modal';
+
+
+
 body{
     background-color: #F6F6F6;
     overflow-x: hidden;

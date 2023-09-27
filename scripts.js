@@ -230,7 +230,6 @@ const paralaxDog = ()=>{
             valueDotLeftX = -1 * ((window.scrollY - 5000) * .08 );
         }
         else{
-            console.log("essa");
             valueDog = -1 * ((window.scrollY - 6000) * .2 );
             valueDotRightY = 1 * ((window.scrollY - 6000) * .4 );
             valueDotRightX = -1 * ((window.scrollY - 6000) * .08 );
