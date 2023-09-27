@@ -3,7 +3,9 @@ $nav-height-global: 120px;
 // @import './fonts';
 @use 'fonts';
 //import components
-@use 'header';
+@use 'header' with (
+    $scroll-margin: $nav-height-global
+);
 @use 'nav' with (
     $nav-height: $nav-height-global 
 );

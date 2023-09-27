@@ -1,9 +1,11 @@
+$scroll-margin: 0px!default;
 header{
     display: flex;
     justify-content: space-around;
     padding-block: 5%;
     position: relative;
     margin-block-start: 120px;
+    scroll-margin-block-start: $scroll-margin;
     picture{
         position: relative;
         width: 30%;
